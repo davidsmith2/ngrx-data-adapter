@@ -1,0 +1,40 @@
+<ng-container *ngIf="users$ | async as users">
+    <div style="float: left;">
+        <h1>Users</h1>
+        <div>
+            <input type="text" [(ngModel)]="search" placeholder="Search user" />
+            <button (click)="searchUsers($event)">Search</button>
+        </div>
+        <button (click)="addUser($event)">Add user</button>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let user of users; trackBy: trackingFn">
+                    <td>{{ user.getId() }}</td>
+                    <td>
+                        <a [routerLink]="['/users', user.getId()]">{{ user.getFullName() }}</a>
+                    </td>
+                    <td>
+                        <button (click)="updateUser($event, user.getId())">Update user</button>
+                    </td>
+                    <td>
+                        <button (click)="upsertUser($event, user.getId())">Upsert user</button>
+                    </td>
+                    <td>
+                        <button (click)="deleteUser($event, user.getId())">Delete user</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div style="float: right;">
+        <router-outlet></router-outlet>
+    </div>
+</ng-container>

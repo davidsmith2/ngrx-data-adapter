@@ -13,27 +13,29 @@
   "affected": {
     "defaultBase": "master"
   },
-  "npmScope": "ngrx-entity-relationship-graphql",
+  "npmScope": "ngrx-data-adapter",
   "tasksRunnerOptions": {
     "default": {
       "runner": "@nrwl/workspace/tasks-runners/default",
       "options": {
-        "cacheableOperations": ["build", "lint", "test", "e2e"]
+        "cacheableOperations": ["build", "lint", "test"]
       }
     }
   },
   "projects": {
-    "ngrx-entity-relationship-graphql": {
-      "tags": []
-    },
-    "ngrx-entity-relationship-graphql-e2e": {
-      "tags": [],
-      "implicitDependencies": ["ngrx-entity-relationship-graphql"]
-    },
-    "api": {
+    "rest": {
       "tags": []
     },
     "api-interfaces": {
+      "tags": []
+    },
+    "graphql": {
+      "tags": []
+    },
+    "frontend": {
+      "tags": []
+    },
+    "ngrx-data-adapter": {
       "tags": []
     }
   }

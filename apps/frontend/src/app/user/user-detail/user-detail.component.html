@@ -1,0 +1,15 @@
+<h2>User</h2>
+<ng-container *ngIf="user$ | async as user">
+    <dl>
+        <dt>ID</dt>
+        <dd>{{ user.getId() }}</dd>
+        <dt>Full name</dt>
+        <dd>{{ user.getFullName() }}</dd>
+        <dt>Companies</dt>
+        <dd>
+            <div *ngFor="let company of user.entity.companies">
+                <a [routerLink]="['/companies', company.id]">{{ company.name }}</a>
+            </div>
+        </dd>
+    </dl>
+</ng-container>

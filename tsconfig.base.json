@@ -15,8 +15,11 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@ngrx-entity-relationship-graphql/api-interfaces": [
+      "@ngrx-data-adapter/api-interfaces": [
         "libs/api-interfaces/src/index.ts"
+      ],
+      "@ngrx-data-adapter/ngrx-data-adapter": [
+        "libs/ngrx-data-adapter/src/index.ts"
       ]
     }
   },

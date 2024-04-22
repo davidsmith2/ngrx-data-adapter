@@ -3,7 +3,7 @@
   "cli": {
     "defaultCollection": "@nrwl/angular"
   },
-  "defaultProject": "ngrx-entity-relationship-graphql",
+  "defaultProject": "frontend",
   "schematics": {
     "@nrwl/angular": {
       "application": {
@@ -19,8 +19,7 @@
     "@nrwl/angular:application": {
       "style": "scss",
       "linter": "eslint",
-      "unitTestRunner": "jest",
-      "e2eTestRunner": "cypress"
+      "unitTestRunner": "jest"
     },
     "@nrwl/angular:library": {
       "style": "scss",
@@ -32,34 +31,147 @@
     }
   },
   "projects": {
-    "ngrx-entity-relationship-graphql": {
+    "graphql": {
+      "root": "apps/graphql",
+      "sourceRoot": "apps/graphql/src",
       "projectType": "application",
-      "root": "apps/ngrx-entity-relationship-graphql",
-      "sourceRoot": "apps/ngrx-entity-relationship-graphql/src",
-      "prefix": "ngrx-entity-relationship-graphql",
+      "architect": {
+        "build": {
+          "builder": "@nrwl/node:build",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/apps/graphql",
+            "main": "apps/graphql/src/main.ts",
+            "tsConfig": "apps/graphql/tsconfig.app.json",
+            "assets": ["apps/graphql/src/assets"]
+          },
+          "configurations": {
+            "production": {
+              "optimization": true,
+              "extractLicenses": true,
+              "inspect": false,
+              "fileReplacements": [
+                {
+                  "replace": "apps/graphql/src/environments/environment.ts",
+                  "with": "apps/graphql/src/environments/environment.prod.ts"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@nrwl/node:execute",
+          "options": {
+            "buildTarget": "graphql:build"
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["apps/graphql/**/*.ts"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/apps/graphql"],
+          "options": {
+            "jestConfig": "apps/graphql/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "rest": {
+      "root": "apps/rest",
+      "sourceRoot": "apps/rest/src",
+      "projectType": "application",
+      "architect": {
+        "build": {
+          "builder": "@nrwl/node:build",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/apps/rest",
+            "main": "apps/rest/src/main.ts",
+            "tsConfig": "apps/rest/tsconfig.app.json",
+            "assets": ["apps/rest/src/assets"]
+          },
+          "configurations": {
+            "production": {
+              "optimization": true,
+              "extractLicenses": true,
+              "inspect": false,
+              "fileReplacements": [
+                {
+                  "replace": "apps/rest/src/environments/environment.ts",
+                  "with": "apps/rest/src/environments/environment.prod.ts"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@nrwl/node:execute",
+          "options": {
+            "buildTarget": "rest:build"
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["apps/rest/**/*.ts"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/apps/rest"],
+          "options": {
+            "jestConfig": "apps/rest/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "api-interfaces": {
+      "root": "libs/api-interfaces",
+      "sourceRoot": "libs/api-interfaces/src",
+      "projectType": "library",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/api-interfaces/**/*.ts"]
+          }
+        }
+      }
+    },
+    "frontend": {
+      "projectType": "application",
+      "root": "apps/frontend",
+      "sourceRoot": "apps/frontend/src",
+      "prefix": "ngrx-data-adapter",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/apps/ngrx-entity-relationship-graphql",
-            "index": "apps/ngrx-entity-relationship-graphql/src/index.html",
-            "main": "apps/ngrx-entity-relationship-graphql/src/main.ts",
-            "polyfills": "apps/ngrx-entity-relationship-graphql/src/polyfills.ts",
-            "tsConfig": "apps/ngrx-entity-relationship-graphql/tsconfig.app.json",
+            "outputPath": "dist/apps/frontend",
+            "index": "apps/frontend/src/index.html",
+            "main": "apps/frontend/src/main.ts",
+            "polyfills": "apps/frontend/src/polyfills.ts",
+            "tsConfig": "apps/frontend/tsconfig.app.json",
             "aot": true,
             "assets": [
-              "apps/ngrx-entity-relationship-graphql/src/favicon.ico",
-              "apps/ngrx-entity-relationship-graphql/src/assets"
+              "apps/frontend/src/favicon.ico",
+              "apps/frontend/src/assets"
             ],
-            "styles": ["apps/ngrx-entity-relationship-graphql/src/styles.scss"],
+            "styles": ["apps/frontend/src/styles.scss"],
             "scripts": []
           },
           "configurations": {
             "production": {
               "fileReplacements": [
                 {
-                  "replace": "apps/ngrx-entity-relationship-graphql/src/environments/environment.ts",
-                  "with": "apps/ngrx-entity-relationship-graphql/src/environments/environment.prod.ts"
+                  "replace": "apps/frontend/src/environments/environment.ts",
+                  "with": "apps/frontend/src/environments/environment.prod.ts"
                 }
               ],
               "optimization": true,
@@ -81,133 +193,70 @@
                   "maximumError": "10kb"
                 }
               ]
-            }
-          }
-        },
-        "serve": {
-          "builder": "@angular-devkit/build-angular:dev-server",
-          "options": {
-            "browserTarget": "ngrx-entity-relationship-graphql:build",
-            "proxyConfig": "apps/ngrx-entity-relationship-graphql/proxy.conf.json"
-          },
-          "configurations": {
-            "production": {
-              "browserTarget": "ngrx-entity-relationship-graphql:build:production"
-            }
-          }
-        },
-        "extract-i18n": {
-          "builder": "@angular-devkit/build-angular:extract-i18n",
-          "options": {
-            "browserTarget": "ngrx-entity-relationship-graphql:build"
-          }
-        },
-        "lint": {
-          "builder": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": [
-              "apps/ngrx-entity-relationship-graphql/src/**/*.ts",
-              "apps/ngrx-entity-relationship-graphql/src/**/*.html"
-            ]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/apps/ngrx-entity-relationship-graphql"],
-          "options": {
-            "jestConfig": "apps/ngrx-entity-relationship-graphql/jest.config.js",
-            "passWithNoTests": true
-          }
-        }
-      }
-    },
-    "ngrx-entity-relationship-graphql-e2e": {
-      "root": "apps/ngrx-entity-relationship-graphql-e2e",
-      "sourceRoot": "apps/ngrx-entity-relationship-graphql-e2e/src",
-      "projectType": "application",
-      "architect": {
-        "e2e": {
-          "builder": "@nrwl/cypress:cypress",
-          "options": {
-            "cypressConfig": "apps/ngrx-entity-relationship-graphql-e2e/cypress.json",
-            "tsConfig": "apps/ngrx-entity-relationship-graphql-e2e/tsconfig.e2e.json",
-            "devServerTarget": "ngrx-entity-relationship-graphql:serve"
-          },
-          "configurations": {
-            "production": {
-              "devServerTarget": "ngrx-entity-relationship-graphql:serve:production"
-            }
-          }
-        },
-        "lint": {
-          "builder": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": [
-              "apps/ngrx-entity-relationship-graphql-e2e/**/*.{js,ts}"
-            ]
-          }
-        }
-      }
-    },
-    "api": {
-      "root": "apps/api",
-      "sourceRoot": "apps/api/src",
-      "projectType": "application",
-      "architect": {
-        "build": {
-          "builder": "@nrwl/node:build",
-          "outputs": ["{options.outputPath}"],
-          "options": {
-            "outputPath": "dist/apps/api",
-            "main": "apps/api/src/main.ts",
-            "tsConfig": "apps/api/tsconfig.app.json",
-            "assets": ["apps/api/src/assets"]
-          },
-          "configurations": {
-            "production": {
-              "optimization": true,
-              "extractLicenses": true,
-              "inspect": false,
+            },
+            "development": {
               "fileReplacements": [
                 {
-                  "replace": "apps/api/src/environments/environment.ts",
-                  "with": "apps/api/src/environments/environment.prod.ts"
+                  "replace": "apps/frontend/src/environments/environment.ts",
+                  "with": "apps/frontend/src/environments/environment.ts"
                 }
               ]
             }
           }
         },
         "serve": {
-          "builder": "@nrwl/node:execute",
+          "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "buildTarget": "api:build"
+            "browserTarget": "frontend:build",
+            "proxyConfig": "apps/frontend/proxy.conf.json"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "frontend:build:production"
+            },
+            "development": {
+              "browserTarget": "frontend:build:development"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "frontend:build"
           }
         },
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["apps/api/**/*.ts"]
+            "lintFilePatterns": [
+              "apps/frontend/src/**/*.ts",
+              "apps/frontend/src/**/*.html"
+            ]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/apps/api"],
+          "outputs": ["coverage/apps/frontend"],
           "options": {
-            "jestConfig": "apps/api/jest.config.js",
+            "jestConfig": "apps/frontend/jest.config.js",
             "passWithNoTests": true
           }
         }
       }
     },
-    "api-interfaces": {
-      "root": "libs/api-interfaces",
-      "sourceRoot": "libs/api-interfaces/src",
+    "ngrx-data-adapter": {
       "projectType": "library",
+      "root": "libs/ngrx-data-adapter",
+      "sourceRoot": "libs/ngrx-data-adapter/src",
+      "prefix": "ngrx-data-adapter",
       "architect": {
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["libs/api-interfaces/**/*.ts"]
+            "lintFilePatterns": [
+              "libs/ngrx-data-adapter/src/**/*.ts",
+              "libs/ngrx-data-adapter/src/**/*.html"
+            ]
           }
         }
       }

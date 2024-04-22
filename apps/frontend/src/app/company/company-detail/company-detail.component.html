@@ -1,0 +1,23 @@
+<h2>Company</h2>
+<ng-container *ngIf="company$ | async as company">
+    <dl>
+        <dt>ID</dt>
+        <dd>{{ company.id }}</dd>
+        <dt>Name</dt>
+        <dd>{{ company.name }}</dd>
+        <dt>Address</dt>
+        <dd>
+            <address>
+                {{ company.address.street }}, {{ company.address.city }}, {{ company.address.country }}
+            </address>
+        </dd>
+        <dt>Users</dt>
+        <dd>
+            <ul style="margin: 0; padding-left: 0; list-style: none; ">
+                <li *ngFor="let user of company.users">
+                    <a [routerLink]="['/users', user.id]">{{ user.firstName }} {{ user.lastName }}</a>
+                </li>
+            </ul>
+        </dd>
+    </dl>
+</ng-container>

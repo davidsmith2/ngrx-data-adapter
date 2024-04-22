@@ -1,6 +1,7 @@
 module.exports = {
   projects: [
-    '<rootDir>/apps/ngrx-entity-relationship-graphql',
+    '<rootDir>/apps/frontend',
     '<rootDir>/apps/api',
+    '<rootDir>/apps/graphql',
   ],
 };
