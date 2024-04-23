@@ -22,9 +22,9 @@ export * from './lib/dataservices/interfaces/operation-handler-options.interface
 export * from './lib/dataservices/variables/data-service-method-to-entity-op.constant';
 export * from './lib/dataservices/variables/entity-op-to-data-service-method.constant';
 export * from './lib/effects/classes/adapter-entity-effects';
-export * from './lib/effects/classes/persist-success-action';
 export * from './lib/effects/interfaces/relationship-action.interface';
-export * from './lib/effects/variables/persist-success-action-type.constant';
+export * from './lib/effects/variables/adapter-action-types.enum';
+export * from './lib/effects/variables/adapter-actions.constants';
 export * from './lib/entity-metadata/interfaces/adapter-entity-config.interface';
 export * from './lib/entity-metadata/interfaces/adapter-entity-metadata-map.interface';
 export * from './lib/entity-metadata/interfaces/adapter-entity-metadata.interface';

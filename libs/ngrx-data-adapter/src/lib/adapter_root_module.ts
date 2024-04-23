@@ -1,9 +1,7 @@
 import { Inject, NgModule } from "@angular/core";
-import { ENTITY_METADATA_TOKEN, EntityCacheQuerySet, EntityMetadataMap } from "@ngrx/data";
-import { Store, createAction } from "@ngrx/store";
-
-export const ROOT_EFFECTS_INIT = '@ngrx/data-adapter/init';
-export const rootEffectsInit = createAction(ROOT_EFFECTS_INIT);
+import { ENTITY_METADATA_TOKEN, EntityMetadataMap } from "@ngrx/data";
+import { Store } from "@ngrx/store";
+import { AdapterActionTypes } from "./effects/variables/adapter-action-types.enum";
 
 @NgModule({})
 export class AdapterRootModule {
@@ -12,7 +10,7 @@ export class AdapterRootModule {
     store: Store<any>
   ) {
     store.dispatch({
-      type: ROOT_EFFECTS_INIT,
+      type: AdapterActionTypes.INITIALIZE_ENTITY_CACHE,
       payload: this.generateEntityCacheKeys()
     })
   }
