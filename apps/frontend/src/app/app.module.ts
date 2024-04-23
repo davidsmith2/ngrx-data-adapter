@@ -10,6 +10,11 @@ import { CoreModule } from './core/core.module';
 import { ngrxEntityRelationshipReducer } from 'ngrx-entity-relationship';
 import { RouterModule } from '@angular/router';
 
+const NGRX_STORE_MIDDLEWARES: {[key: string]: any} = {
+  devtools: StoreDevtoolsModule.instrument(),
+  logger: []
+};
+
 @NgModule({
   declarations: [AppComponent],
   imports: [
@@ -17,7 +22,7 @@ import { RouterModule } from '@angular/router';
     HttpClientModule,
     StoreModule.forRoot({}, { metaReducers: [ngrxEntityRelationshipReducer] }),
     EffectsModule.forRoot([]),
-    !environment.production ? StoreDevtoolsModule.instrument() : [],
+    !environment.production ? NGRX_STORE_MIDDLEWARES[environment.ngrxStoreMiddleware] : [],
     CoreModule,
     RouterModule.forRoot([
       {
