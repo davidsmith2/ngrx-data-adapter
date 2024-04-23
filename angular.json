@@ -258,6 +258,13 @@
               "libs/ngrx-data-adapter/src/**/*.html"
             ]
           }
+        },
+        "docs": {
+          "builder": "@nrwl/workspace:run-commands",
+          "options": {
+            "command": "npx typedoc -out docs/libs/ngrx-data-adapter --tsconfig libs/ngrx-data-adapter/tsconfig.lib.json libs/ngrx-data-adapter/src/index.ts",
+            "parallel": false
+          }
         }
       }
     }
