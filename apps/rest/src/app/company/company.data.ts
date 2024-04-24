@@ -3,46 +3,46 @@ import { CompanyDao } from "./company.dao";
 
 export const COMPANY_DATA: Array<CompanyDao> = [
   {
-    id: 1,
+    id: 200,
     name: 'Meta',
-    addressId: 1,
+    addressId: ADDRESS_DATA[0].id,
     address: ADDRESS_DATA[0],
-    users: [1]
+    users: [100]
   },
   {
-    id: 2,
+    id: 201,
     name: 'Amazon',
-    addressId: 2,
+    addressId: ADDRESS_DATA[1].id,
     address: ADDRESS_DATA[1],
-    users: [2]
+    users: [101]
   },
   {
-    id: 3,
+    id: 202,
     name: 'Netflix',
-    addressId: 3,
+    addressId: ADDRESS_DATA[2].id,
     address: ADDRESS_DATA[2],
-    users: [3]
+    users: [102]
   },
   {
-    id: 4,
+    id: 203,
     name: 'Google',
-    addressId: 4,
+    addressId: ADDRESS_DATA[3].id,
     address: ADDRESS_DATA[3],
-    users: [4]
+    users: [103]
   },
   {
-    id: 5,
+    id: 204,
     name: 'Tesla',
-    addressId: 5,
+    addressId: ADDRESS_DATA[4].id,
     address: ADDRESS_DATA[4],
-    users: [5]
+    users: [104]
   },
   {
-    id: 6,
+    id: 205,
     name: 'SpaceX',
-    addressId: 6,
+    addressId: ADDRESS_DATA[5].id,
     address: ADDRESS_DATA[5],
-    users: [5]
+    users: [104]
   }
 ];
 

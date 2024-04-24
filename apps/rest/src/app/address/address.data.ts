@@ -2,37 +2,37 @@ import { Address } from "@ngrx-data-adapter/api-interfaces";
 
 export const ADDRESS_DATA: Array<Address> = [
   {
-    id: 1,
+    id: 300,
     street: '1 Hacker Way',
     city: 'Menlo Park',
     country: 'USA'
   },
   {
-    id: 2,
+    id: 301,
     street: '410 Terry Ave N',
     city: 'Seattle',
     country: 'USA'
   },
   {
-    id: 3,
+    id: 302,
     street: '121 Albright Way',
     city: 'Los Gatos',
     country: 'USA'
   },
   {
-    id: 4,
+    id: 303,
     street: '1600 Amphitheatre Parkway',
     city: 'Mountain View',
     country: 'USA'
   },
   {
-    id: 5,
+    id: 304,
     street: 'street',
     city: 'city',
     country: 'country'
   },
   {
-    id: 6,
+    id: 305,
     street: 'street',
     city: 'city',
     country: 'country'
