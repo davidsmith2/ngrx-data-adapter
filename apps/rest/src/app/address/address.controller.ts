@@ -9,6 +9,7 @@ export class AddressController {
 
   @Get(':id')
   getByKey(@Param('id') id: number): Address {
+    console.log(id)
     const dao: AddressDao = this.addressService.getAddressById(Number(id));
     return this.daoToDto(dao);
   }
