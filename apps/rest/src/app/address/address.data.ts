@@ -27,14 +27,14 @@ export const ADDRESS_DATA: Array<Address> = [
   },
   {
     id: 304,
-    street: 'street',
-    city: 'city',
-    country: 'country'
+    street: '3500 Deer Creek Road',
+    city: 'Palo Alto',
+    country: 'USA'
   },
   {
     id: 305,
-    street: 'street',
-    city: 'city',
-    country: 'country'
+    street: 'Rocket Road',
+    city: 'Hawthorne',
+    country: 'USA'
   }
 ]

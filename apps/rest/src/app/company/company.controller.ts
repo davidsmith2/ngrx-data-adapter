@@ -4,7 +4,6 @@ import { Company, User } from '@ngrx-data-adapter/api-interfaces';
 import { CompanyDao } from './company.dao';
 import { getUsersByIds } from '../user/user.data';
 import { UserDao } from '../user/user.dao';
-import { getCompaniesByCompanyIds } from './company.data';
 
 @Controller('company')
 export class CompanyController {
