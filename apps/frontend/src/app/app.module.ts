@@ -37,6 +37,10 @@ const NGRX_STORE_MIDDLEWARES: {[key: string]: any} = {
       {
         path: 'companies',
         loadChildren: () => import('./company/company.module').then((m) => m.CompanyModule),
+      },
+      {
+        path: 'addresses',
+        loadChildren: () => import('./address/address.module').then((m) => m.AddressModule),
       }
     ])
   ],

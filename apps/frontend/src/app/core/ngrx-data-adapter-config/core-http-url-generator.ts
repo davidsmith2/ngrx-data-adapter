@@ -20,6 +20,12 @@ export class CoreHttpUrlGenerator extends DefaultHttpUrlGenerator {
     if (environment.apiRoot === 'graphql' && entityName === 'Company') {
       return root + '/companies';
     }
+    if (environment.apiRoot === 'rest' && entityName === 'Address') {
+      return root + '/address';
+    }
+    if (environment.apiRoot === 'graphql' && entityName === 'Address') {
+      return root + '/addresses';
+    }
     return root;
   }
 }

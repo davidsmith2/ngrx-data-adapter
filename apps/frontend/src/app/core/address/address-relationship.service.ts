@@ -11,21 +11,16 @@ import { CompanyService } from '../company/company.service';
 export class AddressRelationshipService implements DefaultRelationshipService<Address> {
   public readonly selectOne = rootEntity(
     this.addressService,
-    null,
     {
-      gqlFields: {
-        id: '',
-        street: '',
-        city: '',
-        state: '',
-        country: '',
-      }
+      gqlFields: ['id', 'street', 'city', 'country']
     },
     childEntity(
       this.companyService,
       'addressId',
-      '_company' as never,
-      {gqlFields: ['id', 'name']}
+      'company',
+      {
+        gqlFields: ['id', 'name']
+      }
     )
   );
   public readonly selectAll = rootEntities(this.selectOne);

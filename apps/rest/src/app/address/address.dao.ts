@@ -3,4 +3,5 @@ export interface AddressDao {
   street: string;
   city: string;
   country: string;
+  company: number;
 }

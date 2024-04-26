@@ -5,6 +5,8 @@ import { GetUserByKeyRequestHandler } from '../user/get-user-by-key-operation-ha
 import { AddUserOperationHandler } from '../user/add-user-operation-handler';
 import { GetAllCompaniesOperationHandler } from '../company/get-all-companies-operation-handler';
 import { GetCompanyByKeyOperationHandler } from '../company/get-company-by-key-operation-handler';
+import { GetAddressByKeyOperationHandler } from '../address/get-address-by-key-operation-handler';
+import { GetAllAddressesOperationHandler } from '../address/get-all-addresses-operation-handler';
 
 export const CoreEntityMetadataProvider: Provider = {
   provide: ENTITY_METADATA_TOKEN,
@@ -45,7 +47,16 @@ export const CoreEntityMetadataProvider: Provider = {
           }
         }
       },
-      Address: {}
+      Address: {
+        adapter: {
+          getAll: {
+            proxy: new GetAllAddressesOperationHandler(null)
+          },
+          getById: {
+            proxy: new GetAddressByKeyOperationHandler(null)
+          }
+        }
+      }
     }
   ]
 };

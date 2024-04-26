@@ -15,4 +15,7 @@ export class AddressType {
   @Field({nullable: true})
   country: string;
 
+  @Field(type => CompanyType, {nullable: true})
+  company: CompanyType;
+
 }
