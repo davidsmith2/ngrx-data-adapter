@@ -30,7 +30,7 @@ export class CompanyRelationshipService implements DefaultRelationshipService<Co
       'addressId',
       'address',
       {
-        gqlFields: ['id', 'street']
+        gqlFields: ['id', 'street', 'city', 'country']
       }
     ),
     childrenEntities(
