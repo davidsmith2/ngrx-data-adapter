@@ -12,15 +12,14 @@
             </thead>
             <tbody>
                 <tr *ngFor="let address of addresses; trackBy: trackingFn">
-                    <td>{{ address.id }}</td>
+                    <td>
+                        <a routerLink="/addresses/{{ address.id }}">{{ address.id }}</a>
+                    </td>
                     <td>{{ address.street }}</td>
                     <td>{{ address.city }}</td>
                     <td>{{ address.country }}</td>
                 </tr>
             </tbody>
         </table>
-    </div>
-    <div style="float: right;">
-        <router-outlet></router-outlet>
     </div>
 </ng-container>

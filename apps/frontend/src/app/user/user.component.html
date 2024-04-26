@@ -17,9 +17,11 @@
             </thead>
             <tbody>
                 <tr *ngFor="let user of users; trackBy: trackingFn">
-                    <td>{{ user.getId() }}</td>
                     <td>
-                        <a [routerLink]="['/users', user.getId()]">{{ user.getFullName() }}</a>
+                        <a [routerLink]="['/users', user.getId()]">{{ user.getId() }}</a>
+                    </td>
+                    <td>
+                        {{ user.getFullName() }}
                     </td>
                     <td>
                         <button (click)="updateUser($event, user.getId())">Update user</button>
@@ -33,8 +35,5 @@
                 </tr>
             </tbody>
         </table>
-    </div>
-    <div style="float: right;">
-        <router-outlet></router-outlet>
     </div>
 </ng-container>

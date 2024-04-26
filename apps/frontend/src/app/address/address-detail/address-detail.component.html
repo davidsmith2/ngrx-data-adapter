@@ -10,6 +10,8 @@
         <dt>Country</dt>
         <dd>{{ address.country }}</dd>
         <dt>Company</dt>
-        <dd>{{ address.company.name }}</dd>
+        <dd>
+            <a routerLink="/companies/{{ address.company.id }}">{{ address.company.name }}</a>
+        </dd>
     </dl>
 </ng-container>

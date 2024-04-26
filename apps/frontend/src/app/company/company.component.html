@@ -10,15 +10,11 @@
             </thead>
             <tbody>
                 <tr *ngFor="let company of companies; trackBy: trackingFn">
-                    <td>{{ company.id }}</td>
                     <td>
-                        <a routerLink="/companies/{{ company.id }}">{{ company.name }}</a>
-                    </td>
+                        <a routerLink="/companies/{{ company.id }}">{{ company.id }}</a>
+                    <td>{{ company.name }}</td>
                 </tr>
             </tbody>
         </table>
-    </div>
-    <div style="float: right;">
-        <router-outlet></router-outlet>
     </div>
 </ng-container>
