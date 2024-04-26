@@ -21,18 +21,16 @@ import { CompanyDetailResolver } from './company-detail/company-detail.resolver'
         component: CompanyComponent,
         resolve: {
           companiesLoaded: CompanyResolver
-        },
-        children: [
-          {
-            path: ':id',
-            component: CompanyDetailComponent,
-            resolve: {
-              companyLoaded: CompanyDetailResolver
-            }
-          },
-        ]
+        }
+      },
+      {
+        path: ':id',
+        component: CompanyDetailComponent,
+        resolve: {
+          companyLoaded: CompanyDetailResolver
+        }
       }
-    ])
+])
   ]
 })
 export class CompanyModule { }

@@ -19,18 +19,16 @@ import { AddressDetailResolver } from './address-detail/address-detail.resolver'
         component: AddressComponent,
         resolve: {
           addressesLoaded: AddressResolver
-        },
-        children: [
-          {
-            path: ':id',
-            component: AddressDetailComponent,
-            resolve: {
-              addressLoaded: AddressDetailResolver
-            }
-          },
-        ]
-      }
-    ])
+        }
+      },
+      {
+        path: ':id',
+        component: AddressDetailComponent,
+        resolve: {
+          addressLoaded: AddressDetailResolver
+        }
+      },
+])
   ]
 })
 export class AddressModule { }

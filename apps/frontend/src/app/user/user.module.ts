@@ -20,18 +20,16 @@ import { UserDetailResolver } from './user-detail/user-detail.resolver';
         component: UserComponent,
         resolve: {
           usersLoaded: UserResolver
-        },
-        children: [
-          {
-            path: ':id',
-            component: UserDetailComponent,
-            resolve: {
-              userLoaded: UserDetailResolver
-            }
-          },
-        ]
+        }
+      },
+      {
+        path: ':id',
+        component: UserDetailComponent,
+        resolve: {
+          userLoaded: UserDetailResolver
+        }
       }
-    ]),
+]),
     FormsModule
   ]
 })
