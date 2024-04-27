@@ -1,40 +1,26 @@
 import { Controller, Get, Param } from '@nestjs/common';
-import { Address, Company } from '@ngrx-data-adapter/api-interfaces';
+import { Address } from '@ngrx-data-adapter/api-interfaces';
 import { AddressDao } from './address.dao';
 import { AddressService } from './address.service';
-import { CompanyService } from '../company/company.service';
-import { CompanyDao } from '../company/company.dao';
+import { AddressMapper } from './address.mapper';
 
 @Controller('address')
 export class AddressController {
   constructor(
     private readonly addressService: AddressService,
-    private readonly companyService: CompanyService
+    private readonly addressMapper: AddressMapper<AddressDao, Address>
   ) {}
 
   @Get()
   getAll(): Array<Address> {
     const daos: Array<AddressDao> = this.addressService.getAddresses();
-    return daos.map((dao: AddressDao) => this.daoToDto(dao));
+    return daos.map((dao: AddressDao) => this.addressMapper.mapDaoToDto(dao));
   }
 
   @Get(':id')
   getByKey(@Param('id') id: number): Address {
     const dao: AddressDao = this.addressService.getAddressById(Number(id));
-    return this.daoToDto(dao);
+    return this.addressMapper.mapDaoToDto(dao);
   }
 
-  private daoToDto(addressDao: AddressDao): Address {
-    const companyDao: CompanyDao = this.companyService.getCompanyById(addressDao.company);
-    return {
-      id: addressDao.id,
-      street: addressDao.street,
-      city: addressDao.city,
-      country: addressDao.country,
-      company: {
-        id: companyDao.id,
-        name: companyDao.name
-      } as Company,
-    };
-  }
 }
