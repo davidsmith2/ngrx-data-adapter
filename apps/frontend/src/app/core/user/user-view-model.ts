@@ -18,4 +18,8 @@ export class UserViewModel {
   getCompanyNames(): Array<string> {
     return this.entity.companies.map((company: Company) => company.name) || null;
   }
+
+  getPermissionLevel(): number {
+    return this.entity.permission.level || null;
+  }
 }

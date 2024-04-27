@@ -11,5 +11,7 @@
                 <a [routerLink]="['/companies', company.id]">{{ company.name }}</a>
             </div>
         </dd>
+        <dt>Permission level</dt>
+        <dd>{{ user.getPermissionLevel() }}</dd>
     </dl>
 </ng-container>

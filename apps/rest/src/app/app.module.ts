@@ -6,10 +6,22 @@ import { AddressController } from './address/address.controller';
 import { UserService } from './user/user.service';
 import { CompanyService } from './company/company.service';
 import { AddressService } from './address/address.service';
+import { PermissionController } from './permission/permission.controller';
+import { PermissionService } from './permission/permission.service';
 
 @Module({
   imports: [],
-  controllers: [UserController, CompanyController, AddressController],
-  providers: [UserService, CompanyService, AddressService],
+  controllers: [
+    UserController,
+    CompanyController,
+    AddressController,
+    PermissionController
+  ],
+  providers: [
+    UserService,
+    CompanyService,
+    AddressService,
+    PermissionService
+  ],
 })
 export class AppModule {}

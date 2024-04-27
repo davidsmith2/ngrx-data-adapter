@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
-import { rootEntity, relatedEntity, rootEntities } from 'ngrx-entity-relationship';
+import { rootEntity, relatedEntity, rootEntities, childEntity } from 'ngrx-entity-relationship';
 import { CompanyService } from '../company/company.service';
 import { User } from '@ngrx-data-adapter/api-interfaces';
 import { UserService } from './user.service';
 import { UserViewModel } from './user-view-model';
 import { DefaultRelationshipService } from '@ngrx-data-adapter/ngrx-data-adapter';
+import { PermissionService } from '../permission/permission.service';
 
 @Injectable({
   providedIn: 'root',
@@ -27,12 +28,14 @@ export class UserRelationshipService implements DefaultRelationshipService<User>
       gqlFields: {
         id: '',
         firstName: '',
-        lastName: '',
-        permissions: '{level}'
+        lastName: ''
       }
     },
     relatedEntity(this.companyService, 'companyIds', 'companies', {
       gqlFields: ['id', 'name']
+    }),
+    childEntity(this.permissionService, 'userId', 'permission', {
+      gqlFields: ['id', 'level', 'description']
     })
   );
 
@@ -58,7 +61,8 @@ export class UserRelationshipService implements DefaultRelationshipService<User>
 
   constructor(
     private userService: UserService,
-    private companyService: CompanyService
+    private companyService: CompanyService,
+    private permissionService: PermissionService
   ) { }
 
 }

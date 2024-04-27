@@ -1,6 +1,6 @@
-import { Field, ID, InputType, Int, ObjectType } from "@nestjs/graphql";
-import { PermissionsType } from "../permissions/permissions.types";
+import { Field, InputType, Int, ObjectType } from "@nestjs/graphql";
 import { CompanyType } from "../company/company.types";
+import { PermissionType } from "../permissions/permission.types";
 
 @ObjectType()
 export class UserType {
@@ -14,7 +14,7 @@ export class UserType {
   lastName: string;
 
   @Field({nullable: true})
-  permissions: PermissionsType;
+  permission: PermissionType;
 
   @Field(type => [Int], {nullable: true})
   companyIds: Array<number>;

@@ -56,7 +56,8 @@ export const CoreEntityMetadataProvider: Provider = {
             proxy: new GetAddressByKeyOperationHandler(null)
           }
         }
-      }
+      },
+      Permission: {}
     }
   ]
 };

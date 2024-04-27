@@ -1,13 +1,17 @@
 import { Controller, Get, Param } from '@nestjs/common';
 import { CompanyService } from './company.service';
-import { Company, User } from '@ngrx-data-adapter/api-interfaces';
+import { Address, Company, User } from '@ngrx-data-adapter/api-interfaces';
 import { CompanyDao } from './company.dao';
 import { getUsersByIds } from '../user/user.data';
 import { UserDao } from '../user/user.dao';
+import { AddressService } from '../address/address.service';
 
 @Controller('company')
 export class CompanyController {
-  constructor(private readonly companyService: CompanyService) {}
+  constructor(
+    private readonly companyService: CompanyService,
+    private readonly addressService: AddressService
+  ) {}
 
   @Get()
   getAll(): Array<Company> {
@@ -26,7 +30,12 @@ export class CompanyController {
       id: companyDao.id,
       name: companyDao.name,
       addressId: companyDao.addressId,
-      address: companyDao.address,
+      address: {
+        id: companyDao.address.id,
+        street: companyDao.address.street,
+        city: companyDao.address.city,
+        country: companyDao.address.country
+      },
       users: getUsersByIds(companyDao.users).map((userDao: UserDao) => {
         if (userDao.companyIds) {
           return {...userDao, companyIds: userDao.companyIds} as User;

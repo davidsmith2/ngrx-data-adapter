@@ -5,10 +5,16 @@ import { getCompaniesByCompanyIds } from '../company/company.data';
 import { UserDao } from './user.dao';
 import { getUsersByIds } from './user.data';
 import { CompanyDao } from '../company/company.dao';
+import { Permission } from 'libs/api-interfaces/src/lib/permission/permission.interface';
+import { PermissionService } from '../permission/permission.service';
+import { PermissionDao } from '../permission/permission.dao';
 
 @Controller('user')
 export class UserController {
-  constructor(private readonly userService: UserService) {}
+  constructor(
+    private readonly userService: UserService,
+    private readonly permissionService: PermissionService
+  ) {}
 
   @Post()
   add(@Body() user: User): User {
@@ -39,7 +45,7 @@ export class UserController {
     } else {
       userDaos = this.userService.getAll();
     }
-    return userDaos.map(this.daoToDto);
+    return userDaos.map((userDao: UserDao) => this.daoToDto(userDao));
   }
 
   @Put()
@@ -57,29 +63,49 @@ export class UserController {
   }
 
   private dtoToDao(user: User): UserDao {
-    let a = {...user};
+    let userCopy: User = {...user};
     if (user.companies) {
-      a = {...a, companyIds: user.companies.map(company => company.id)};
+      userCopy = {...userCopy, companyIds: user.companies.map(company => company.id)};
     }
-    return a;
+    return userCopy;
   }
 
-  private daoToDto(user: UserDao): User {
-    let companies: Array<Company>;
-    if (user.companyIds) {
-      const companyDaos: Array<CompanyDao> = getCompaniesByCompanyIds(user.companyIds);
-      companies = companyDaos.map(company => {
-        const userDaos: Array<UserDao> = getUsersByIds(company.users);
+  private daoToDto(userDao: UserDao): User {
+    let user: User = {...userDao} as User;
+    if (userDao.companyIds) {
+      const companyDaos: Array<CompanyDao> = getCompaniesByCompanyIds(userDao.companyIds);
+      const companies: Array<Company> = companyDaos.map(companyDao => {
+        const userDaos: Array<UserDao> = getUsersByIds(companyDao.users);
         const users: Array<User> = userDaos.map(user => {
           return {...user} as User;
-        })
+        });
+        const company: Company = {
+          id: companyDao.id,
+          name: companyDao.name,
+          addressId: companyDao.addressId,
+          address: {
+            id: companyDao.address.id,
+            street: companyDao.address.street,
+            city: companyDao.address.city,
+            country: companyDao.address.country
+          },
+          users
+        };
         return {...company, users};
       })
+      user = {...user, companies};
     }
-    if (companies) {
-      return {...user, companies};
+    const permissionDao: PermissionDao = this.permissionService.getPermissionByUserId(userDao.id);
+    if (permissionDao) {
+      const permission: Permission = {
+        id: permissionDao.id,
+        level: permissionDao.level,
+        description: permissionDao.description,
+        userId: userDao.id
+      };
+      user = {...user, permission};
     }
-    return {...user} as User;
+    return user;
   }
 
 }

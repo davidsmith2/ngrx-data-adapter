@@ -7,6 +7,8 @@ import { UserResolver } from './user/user.resolver';
 import { CompanyResolver } from './company/company.resolver';
 import { AddressResolver } from './address/address.resolver';
 import { AddressService } from './address/address.service';
+import { PermissionResolver } from './permissions/permissions.resolver';
+import { PermissionService } from './permissions/permission.service';
 
 @Module({
   imports: [
@@ -22,7 +24,9 @@ import { AddressService } from './address/address.service';
     CompanyResolver,
     CompanyService,
     AddressResolver,
-    AddressService
+    AddressService,
+    PermissionResolver,
+    PermissionService
   ]
 })
 export class AppModule {}
