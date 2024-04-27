@@ -1,25 +1,23 @@
 <ng-container *ngIf="addresses$ | async as addresses">
-    <div style="float: left;">
-        <h1>Addresses</h1>
-        <table>
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Street</th>
-                    <th>City</th>
-                    <th>Country</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let address of addresses; trackBy: trackingFn">
-                    <td>
-                        <a routerLink="/addresses/{{ address.id }}">{{ address.id }}</a>
-                    </td>
-                    <td>{{ address.street }}</td>
-                    <td>{{ address.city }}</td>
-                    <td>{{ address.country }}</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
+    <h1>Addresses</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Street</th>
+                <th>City</th>
+                <th>Country</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let address of addresses; trackBy: trackingFn">
+                <td>
+                    <a routerLink="/addresses/{{ address.id }}">{{ address.id }}</a>
+                </td>
+                <td>{{ address.street }}</td>
+                <td>{{ address.city }}</td>
+                <td>{{ address.country }}</td>
+            </tr>
+        </tbody>
+    </table>
 </ng-container>

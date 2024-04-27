@@ -1,20 +1,18 @@
 <ng-container *ngIf="companies$ | async as companies">
-    <div style="float: left;">
-        <h1>Companies</h1>
-        <table>
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Name</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let company of companies; trackBy: trackingFn">
-                    <td>
-                        <a routerLink="/companies/{{ company.id }}">{{ company.id }}</a>
-                    <td>{{ company.name }}</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
+    <h1>Companies</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let company of companies; trackBy: trackingFn">
+                <td>
+                    <a routerLink="/companies/{{ company.id }}">{{ company.id }}</a>
+                <td>{{ company.name }}</td>
+            </tr>
+        </tbody>
+    </table>
 </ng-container>

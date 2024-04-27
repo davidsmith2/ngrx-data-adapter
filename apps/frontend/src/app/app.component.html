@@ -1,12 +1,16 @@
-<ul>
-    <li>
-        <a routerLink="/users">Users</a>
-    </li>
-    <li>
-        <a routerLink="/companies">Companies</a>
-    </li>
-    <li>
-        <a routerLink="/addresses">Addresses</a>
-    </li>
-</ul>
-<router-outlet></router-outlet>
+<div style="float: left; width: 33%; ">
+    <ul>
+        <li>
+            <a routerLink="/users">Users</a>
+        </li>
+        <li>
+            <a routerLink="/companies">Companies</a>
+        </li>
+        <li>
+            <a routerLink="/addresses">Addresses</a>
+        </li>
+    </ul>
+</div>
+<div style="float: right; width: 66%; ">
+    <router-outlet></router-outlet>
+</div>
