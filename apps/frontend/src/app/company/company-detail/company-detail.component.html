@@ -8,7 +8,9 @@
         <dt>Address</dt>
         <dd>
             <address>
-                {{ company.address.street }}, {{ company.address.city }}, {{ company.address.country }}
+                <a routerLink="/addresses/{{ company.address.id }}">
+                    {{ company.address.street }}, {{ company.address.city }}, {{ company.address.country }}
+                </a>
             </address>
         </dd>
         <dt>Users</dt>
