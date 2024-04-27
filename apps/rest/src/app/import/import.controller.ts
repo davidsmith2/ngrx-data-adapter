@@ -1,23 +1,20 @@
-import { Controller, Get, Param } from '@nestjs/common';
+import { Controller, Get } from '@nestjs/common';
 import { ImportService } from './import.service';
 import { ImportDao } from './import.dao';
+import { ImportMapper } from './import.mapper';
+import { Import } from '@ngrx-data-adapter/api-interfaces';
 
 @Controller('import')
 export class ImportController {
-  constructor(private readonly importService: ImportService) {}
+  constructor(
+    private readonly importService: ImportService,
+    private readonly importMapper: ImportMapper<ImportDao, Import>
+  ) {}
 
   @Get()
-  getAll(): any {
+  getAll(): Import {
     const dao: ImportDao = this.importService.getAllData();
-    return this.daoToDto(dao);
+    return this.importMapper.mapDaoToDto(dao);
   }
 
-  private daoToDto(dao: ImportDao): any {
-    return {
-      users: null,
-      companies: null,
-      addresses: null,
-      permissions: null
-    };
-  }
 }

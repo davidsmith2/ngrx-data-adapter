@@ -14,6 +14,7 @@ import { PermissionMapper } from './permission/permission.mapper';
 import { AddressMapper } from './address/address.mapper';
 import { CompanyMapper } from './company/company.mapper';
 import { UserMapper } from './user/user.mapper';
+import { ImportMapper } from './import/import.mapper';
 
 @Module({
   imports: [],
@@ -33,7 +34,8 @@ import { UserMapper } from './user/user.mapper';
     PermissionMapper,
     AddressMapper,
     CompanyMapper,
-    UserMapper
+    UserMapper,
+    ImportMapper
   ],
 })
 export class AppModule {}
