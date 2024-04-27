@@ -1,8 +1,8 @@
 import { Controller, Get, Param } from '@nestjs/common';
 import { PermissionService } from './permission.service';
-import { Permission } from 'libs/api-interfaces/src/lib/permission/permission.interface';
 import { PermissionDao } from './permission.dao';
 import { PermissionMapper } from './permission.mapper';
+import { Permission } from '@ngrx-data-adapter/api-interfaces';
 
 @Controller('permission')
 export class PermissionController {

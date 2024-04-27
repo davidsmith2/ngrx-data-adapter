@@ -1,7 +1,7 @@
 import { Injectable } from "@nestjs/common";
 import { Mapper } from "../mapper.interface";
 import { PermissionDao } from './permission.dao';
-import { Permission } from "libs/api-interfaces/src/lib/permission/permission.interface";
+import { Permission } from "@ngrx-data-adapter/api-interfaces";
 
 @Injectable()
 export class PermissionMapper<DAO extends PermissionDao, DTO extends Permission> implements Mapper<DAO, DTO> {
