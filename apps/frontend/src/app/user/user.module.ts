@@ -6,11 +6,13 @@ import { RouterModule } from '@angular/router';
 import { UserDetailComponent } from './user-detail/user-detail.component';
 import { UserResolver } from './user.resolver';
 import { UserDetailResolver } from './user-detail/user-detail.resolver';
+import { PaginatorComponent } from '../paginator/paginator.component';
 
 @NgModule({
   declarations: [
     UserComponent,
-    UserDetailComponent
+    UserDetailComponent,
+    PaginatorComponent
   ],
   imports: [
     CommonModule,

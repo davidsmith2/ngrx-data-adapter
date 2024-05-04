@@ -2,8 +2,23 @@ import { Body, Controller, Delete, Get, Param, Post, Put, Query } from '@nestjs/
 import { UserService } from './user.service';
 import { User } from '@ngrx-data-adapter/api-interfaces';
 import { UserDao } from './user.dao';
-import { PermissionService } from '../permission/permission.service';
 import { UserMapper } from './user.mapper';
+
+interface PagerRequest {
+  page: number;
+  limit: number;
+}  
+
+interface PagerResponse<T> {
+  data: Array<T>;
+  meta: {
+    total: number;
+    pages: number;
+    limit: number;
+    page: number
+  }
+}
+
 
 @Controller('user')
 export class UserController {
@@ -32,15 +47,30 @@ export class UserController {
   }
 
   @Get()
-  getMany(@Query() query: any): Array<User> {
-    const firstName: string = query.firstName;
+  getMany(@Query() query: {firstName: string}|PagerRequest): Array<User>|PagerResponse<User> {
     let userDaos: Array<UserDao>;
-    if (firstName) {
-      userDaos = this.userService.getWithQuery(firstName);
+    if (query.hasOwnProperty('firstName')) {
+      userDaos = this.userService.getWithQuery((<{firstName: string}>query).firstName);
     } else {
       userDaos = this.userService.getAll();
     }
-    return userDaos.map((userDao: UserDao) => this.userMapper.mapDaoToDto(userDao));
+    if (query.hasOwnProperty('page') && query.hasOwnProperty('limit')) {
+      const {page, limit}: PagerRequest = query as PagerRequest;
+      const userDaos: Array<UserDao> = this.userService.getAll();
+      const limitedUserDaos: number = Math.ceil(userDaos.length / +limit);
+      const pagedUserDaos: Array<UserDao> = userDaos.slice((+page - 1) * +limit, +page * +limit);
+      return {
+        data: pagedUserDaos.map((userDao: UserDao) => this.userMapper.mapDaoToDto(userDao)),
+        meta: {
+          total: userDaos.length,
+          pages: limitedUserDaos,
+          limit: +limit,
+          page: +page
+        }
+      };
+    } else {
+      return userDaos.map((userDao: UserDao) => this.userMapper.mapDaoToDto(userDao));
+    }
   }
 
   @Put()

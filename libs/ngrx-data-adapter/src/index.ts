@@ -31,8 +31,6 @@ export * from './lib/entity-metadata/interfaces/adapter-entity-metadata.interfac
 export * from './lib/entity-metadata/interfaces/adapter-operation-config.interface';
 export * from './lib/entity-metadata/interfaces/adapter-relationship-config.interface';
 export * from './lib/entity-services/classes/adapter-entity-collection-service-base';
-export * from './lib/reducers/classes/adapter-entity-collection-reducer-methods-factory';
-export * from './lib/reducers/classes/adapter-entity-collection-reducer-methods';
 export * from './lib/relationship-services/enumerations/relationship-service-method.enum';
 export * from './lib/relationship-services/interfaces/default-relationship-service.interface';
 export * from './lib/relationship-services/variables/entity-op-to-relationship-service-method.constant';

@@ -34,4 +34,10 @@
             </tr>
         </tbody>
     </table>
+    <ngrx-data-adapter-paginator
+        *ngIf="displayPaginator"
+        [options]="paginatorOptions$ | async"
+        [limits]="[1,2,3]"
+        (pageChange)="onPageChange($event)">
+    </ngrx-data-adapter-paginator>
 </ng-container>

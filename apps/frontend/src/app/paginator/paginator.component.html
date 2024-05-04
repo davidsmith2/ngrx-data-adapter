@@ -1,0 +1,26 @@
+<div *ngIf="config" style="display: flex; justify-content: space-between; ">
+  <div>
+    <span>Pages: </span>
+    <span *ngFor="let page of config.pages; let i = index">
+      <a *ngIf="page !== config.page; else currentPageTemplate" href="#" (click)="changePage($event, page)">{{page}}</a>
+      <span *ngIf="i < config.pages.length - 1">&nbsp;|&nbsp;</span>
+      <ng-template #currentPageTemplate>
+        <span>{{page}}</span>
+      </ng-template>
+    </span>
+  </div>
+  <div>
+    <span>Total: </span>
+    <span>{{config.total}}</span>
+  </div>
+  <div>
+    <span>Limits: </span>
+    <span *ngFor="let limit of config.limits; let i = index">
+      <a *ngIf="limit !== config.limit; else currentLimitTemplate" href="#" (click)="changeLimit($event, limit)">{{limit}}</a>
+      <span *ngIf="i < config.limits.length - 1">&nbsp;|&nbsp;</span>
+      <ng-template #currentLimitTemplate>
+        <span>{{limit}}</span>
+      </ng-template>
+    </span>
+  </div>
+</div>

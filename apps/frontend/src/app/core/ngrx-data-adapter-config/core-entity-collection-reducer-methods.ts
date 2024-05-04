@@ -1,6 +1,6 @@
 import { EntityAction, EntityCollection, EntityCollectionReducerMethodMap, EntityCollectionReducerMethods, EntityOp, HttpUrlGenerator, UpdateResponseData } from "@ngrx/data";
 
-export class AdapterEntityCollectionReducerMethods<T> extends EntityCollectionReducerMethods<T> {
+export class CoreEntityCollectionReducerMethods<T> extends EntityCollectionReducerMethods<T> {
 
   readonly methods: EntityCollectionReducerMethodMap<T> = {
     [EntityOp.QUERY_ALL_SUCCESS]: this.queryAllSuccess.bind(this),
@@ -21,7 +21,11 @@ export class AdapterEntityCollectionReducerMethods<T> extends EntityCollectionRe
   }
 
   protected queryManySuccess(collection: EntityCollection<T>, action: EntityAction<T[]>): EntityCollection<T> {
-    return super.queryManySuccess(collection, action);
+    const ec: EntityCollection<T> = super.queryManySuccess(collection, action);
+    if (action.payload.entityOp === EntityOp.QUERY_MANY_SUCCESS && action.payload.entityName === 'User') {
+      (ec as any).paginator = (action.payload as any).meta;
+    }
+    return ec;
   }
 
   protected saveAddOneSuccess(collection: EntityCollection<T>, action: EntityAction<T>): EntityCollection<T> {

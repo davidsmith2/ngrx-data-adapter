@@ -13,6 +13,14 @@ export const CoreEntityMetadataProvider: Provider = {
   useValue: [
     {
       User: {
+        additionalCollectionState: {
+          paginator: {
+            total: undefined,
+            pages: undefined,
+            limit: undefined,
+            page: undefined
+          }
+        },
         adapter: {
           getAll: {
             proxy: new GetAllUsersOperationHandler(null)

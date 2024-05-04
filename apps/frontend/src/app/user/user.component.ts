@@ -6,7 +6,11 @@ import { map, switchMap, take } from 'rxjs/operators';
 import { UserViewModel } from '../core/user/user-view-model';
 import { UserService } from '../core/user/user.service';
 import { Store, select } from '@ngrx/store';
-import { toFactorySelector, toStaticSelector } from 'ngrx-entity-relationship';
+import { toFactorySelector } from 'ngrx-entity-relationship';
+import { EntityCollection } from '@ngrx/data';
+import { PaginatorOptions } from '../paginator/paginator-options.interface';
+import { PageChange } from '../paginator/page-change.interface';
+import { environment } from '../../environments/environment';
 
 @Component({
   templateUrl: './user.component.html',
@@ -17,12 +21,18 @@ export class UserComponent implements OnInit {
 
   users$: Observable<Array<UserViewModel>>;
   search: string = '';
+  displayPaginator: boolean;
+  paginatorOptions$: Observable<PaginatorOptions>;
 
   constructor(
     private userService: UserService,
     private userRelationshipService: UserRelationshipService,
     private store: Store,
   ) {
+    this.displayPaginator = environment.apiRoot === 'rest';
+    this.paginatorOptions$ = this.userService.collection$.pipe(
+      map((collection: EntityCollection<User>) => (collection as any).paginator)
+    );
     this.users$ = this.userService.keys$.pipe(
       switchMap((keys: Array<number>) => {
         const relationalSelector = toFactorySelector(this.userRelationshipService.selectAll);
@@ -39,7 +49,6 @@ export class UserComponent implements OnInit {
 
   searchUsers(event: Event): void {
     event.preventDefault();
-    console.debug('search', this.search);
     this.userService.getUsersWithQuery(this.search).pipe(take(1)).subscribe();
   }
 
@@ -69,6 +78,13 @@ export class UserComponent implements OnInit {
   deleteUser(event: Event, id: number): void {
     event.preventDefault();
     this.userService.deleteUser(id).pipe(take(1)).subscribe();
+  }
+
+  onPageChange(event: PageChange): void {
+    this.userService.getWithQuery({
+      page: event.page.toString(),
+      limit: event.limit.toString()
+    }).pipe(take(1)).subscribe();
   }
 
 }

@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { EntityCollectionReducerMethodsFactory, EntityDefinitionService, EntityCollectionReducerMethodMap, HttpUrlGenerator, DefaultDataServiceConfig } from '@ngrx/data';
-import { AdapterEntityCollectionReducerMethods } from './adapter-entity-collection-reducer-methods';
+import { CoreEntityCollectionReducerMethods } from './core-entity-collection-reducer-methods';
 
 @Injectable()
-export class AdapterEntityCollectionReducerMethodsFactory extends EntityCollectionReducerMethodsFactory {
+export class CoreEntityCollectionReducerMethodsFactory extends EntityCollectionReducerMethodsFactory {
   constructor(private myEntityDefinitionService: EntityDefinitionService) {
     super(myEntityDefinitionService);
   }
@@ -13,7 +13,7 @@ export class AdapterEntityCollectionReducerMethodsFactory extends EntityCollecti
     const definition = this.myEntityDefinitionService.getDefinition<T>(
       entityName
     );
-    const adaptermethodsClass = new AdapterEntityCollectionReducerMethods(
+    const adaptermethodsClass = new CoreEntityCollectionReducerMethods(
       entityName,
       definition
     );
