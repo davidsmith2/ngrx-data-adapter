@@ -5,12 +5,7 @@ import { map } from "rxjs/operators";
 import { ENTITY_SELECTOR } from "ngrx-entity-relationship";
 import { Update } from "@ngrx/entity";
 import { GraphQLQueryService } from "../../utils/classes/graphql-query.service";
-import { AdapterOperationConfig } from "../../entity-metadata/interfaces/adapter-operation-config.interface";
-import { OperationHandler } from "./operation-handler";
-import { DATA_SERVICE_METHOD_TO_ENTITY_OP } from "../variables/data-service-method-to-entity-op.constant";
-import { DataServiceMethod } from "../enumerations/data-service-method.enum";
 import { AdapterEntityMetadataMap } from "../../entity-metadata/interfaces/adapter-entity-metadata-map.interface";
-import { AdapterEntityMetadata } from "../../entity-metadata/interfaces/adapter-entity-metadata.interface";
 import { RelationshipServiceMethod } from "../../relationship-services/enumerations/relationship-service-method.enum";
 
 export class GraphQLDataService<T> extends DefaultDataService<T> {

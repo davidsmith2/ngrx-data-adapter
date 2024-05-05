@@ -194,11 +194,19 @@
                 }
               ]
             },
-            "development": {
+            "development-rest": {
               "fileReplacements": [
                 {
                   "replace": "apps/frontend/src/environments/environment.ts",
-                  "with": "apps/frontend/src/environments/environment.ts"
+                  "with": "apps/frontend/src/environments/environment.dev.rest.ts"
+                }
+              ]
+            },
+            "development-graphql": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/frontend/src/environments/environment.ts",
+                  "with": "apps/frontend/src/environments/environment.dev.graphql.ts"
                 }
               ]
             }
@@ -214,8 +222,11 @@
             "production": {
               "browserTarget": "frontend:build:production"
             },
-            "development": {
-              "browserTarget": "frontend:build:development"
+            "development-rest": {
+              "browserTarget": "frontend:build:development-rest"
+            },
+            "development-graphql": {
+              "browserTarget": "frontend:build:development-graphql"
             }
           }
         },
