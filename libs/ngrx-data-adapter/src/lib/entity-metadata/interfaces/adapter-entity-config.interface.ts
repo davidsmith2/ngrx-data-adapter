@@ -1,6 +1,5 @@
-import { AdapterOperationConfig } from "./adapter-operation-config.interface";
+import { AdapterProxyServicesConfig } from "./adapter-proxy-services-config.interface";
 
 export interface AdapterEntityConfig {
-  [operationName: string]: AdapterOperationConfig;
+  proxyServices?: AdapterProxyServicesConfig
 }
-  

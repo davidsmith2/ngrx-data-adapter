@@ -7,7 +7,7 @@ import { filter, map, mergeMap } from "rxjs/operators";
 import { ENTITY_SELECTOR } from "ngrx-entity-relationship";
 import { DataNormalizationService } from "../../utils/classes/data-normalization.service";
 import { RelationshipAction } from "../interfaces/relationship-action.interface";
-import { ADAPTER_RELATIONSHIP_SERVICES_TOKEN } from "../../utils/variables/adapter-relationship-services-token.constant";
+import { ADAPTER_RELATIONSHIP_SERVICES_TOKEN } from "../../relationship-services/variables/adapter-relationship-services-token.constant";
 import { ENTITY_OP_TO_RELATIONSHIP_SERVICE_METHOD } from "../../relationship-services/variables/entity-op-to-relationship-service-method.constant";
 import { AdapterActionTypes } from "../variables/adapter-action-types.enum";
 import { persistSuccess } from "../variables/adapter-actions.constants";

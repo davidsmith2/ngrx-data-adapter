@@ -3,7 +3,7 @@ import { Inject, Injectable } from "@angular/core";
 import { DefaultDataServiceConfig, DefaultDataServiceFactory, ENTITY_METADATA_TOKEN, EntityCollectionDataService, EntityMetadataMap, HttpUrlGenerator } from "@ngrx/data";
 import { GraphQLQueryService } from "../../utils/classes/graphql-query.service";
 import { GraphQLDataService } from "./graphql-data-service";
-import { ADAPTER_RELATIONSHIP_SERVICES_TOKEN } from "../../utils/variables/adapter-relationship-services-token.constant";
+import { ADAPTER_RELATIONSHIP_SERVICES_TOKEN } from "../../relationship-services/variables/adapter-relationship-services-token.constant";
 import { RestDataService } from "./rest-data-service";
 
 @Injectable()

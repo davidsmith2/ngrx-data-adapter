@@ -1,75 +1,63 @@
 import { Provider } from '@angular/core';
 import { ENTITY_METADATA_TOKEN } from '@ngrx/data';
-import { GetAllUsersOperationHandler } from '../user/get-all-users-operation-handler';
-import { GetUserByKeyRequestHandler } from '../user/get-user-by-key-operation-handler';
-import { GetUsersWithQueryOperationHandler } from '../user/get-users-with-query-operation-handler';
-import { AddUserOperationHandler } from '../user/add-user-operation-handler';
-import { GetAllCompaniesOperationHandler } from '../company/get-all-companies-operation-handler';
-import { GetCompanyByKeyOperationHandler } from '../company/get-company-by-key-operation-handler';
-import { GetAddressByKeyOperationHandler } from '../address/get-address-by-key-operation-handler';
-import { GetAllAddressesOperationHandler } from '../address/get-all-addresses-operation-handler';
-import { DeleteUserOperationHandler } from '../user/delete-user-operation-handler';
-import { UpdateUserOperationHandler } from '../user/update-user-operation-handler';
-import { UpsertUserOperationHandler } from '../user/upsert-user-operation-handler';
+
+import { AddUserProxyService } from '../user/add-user-proxy-service';
+import { DeleteUserProxyService } from '../user/delete-user-proxy-service';
+import { GetAllUsersProxyService } from '../user/get-all-users-proxy-service';
+import { GetUserByIdProxyService } from '../user/get-user-by-id-proxy-service';
+import { GetUsersWithQueryProxyService } from '../user/get-users-with-query-proxy-service';
+import { UpdateUserProxyService } from '../user/update-user-proxy-service';
+import { UpsertUserProxyService } from '../user/upsert-user-proxy-service';
+import { User } from '@ngrx-data-adapter/api-interfaces';
+import { AdapterEntityMetadataMap } from '@ngrx-data-adapter/ngrx-data-adapter';
 
 export const CoreEntityMetadataProvider: Provider = {
   provide: ENTITY_METADATA_TOKEN,
-  useValue: [
-    {
-      User: {
-        additionalCollectionState: {
-          paginator: {
-            total: undefined,
-            pages: undefined,
-            limit: undefined,
-            page: undefined
+  useFactory: (
+    addUserProxyService: AddUserProxyService<User>,
+    deleteUserProxyService: DeleteUserProxyService,
+    getAllUsersProxyService: GetAllUsersProxyService<User>,
+    getUserByIdProxyService: GetUserByIdProxyService<User>,
+    getUsersWithQueryProxyService: GetUsersWithQueryProxyService<User>,
+    updateUserProxyService: UpdateUserProxyService<User>,
+    upsertUserProxyService: UpsertUserProxyService<User>
+  ): Array<AdapterEntityMetadataMap> => {
+    return [
+      {
+        User: {
+          additionalCollectionState: {
+            paginator: {
+              total: undefined,
+              pages: undefined,
+              limit: undefined,
+              page: undefined
+            }
+          },
+          adapter: {
+            proxyServices: {
+              add: addUserProxyService,
+              delete: deleteUserProxyService,
+              getAll: getAllUsersProxyService,
+              getById: getUserByIdProxyService,
+              getWithQuery: getUsersWithQueryProxyService,
+              update: updateUserProxyService,
+              upsert: upsertUserProxyService
+            }
           }
         },
-        adapter: {
-          getAll: {
-            proxy: new GetAllUsersOperationHandler(null)
-          },
-          getById: {
-            proxy: new GetUserByKeyRequestHandler(null)
-          },
-          getWithQuery: {
-            proxy: new GetUsersWithQueryOperationHandler(null)
-          },
-          add: {
-            proxy: new AddUserOperationHandler(null)
-          },
-          update: {
-            proxy: new UpdateUserOperationHandler(null)
-          },
-          delete: {
-            proxy: new DeleteUserOperationHandler(null)
-          },
-          upsert: {
-            proxy: new UpsertUserOperationHandler(null)
-          }
-        }
-      },
-      Company: {
-        adapter: {
-          getAll: {
-            proxy: new GetAllCompaniesOperationHandler(null)
-          },
-          getById: {
-            proxy: new GetCompanyByKeyOperationHandler(null)
-          }
-        }
-      },
-      Address: {
-        adapter: {
-          getAll: {
-            proxy: new GetAllAddressesOperationHandler(null)
-          },
-          getById: {
-            proxy: new GetAddressByKeyOperationHandler(null)
-          }
-        }
-      },
-      Permission: {}
-    }
+        Company: {},
+        Address: {},
+        Permission: {}
+      }
+    ]
+  },
+  deps: [
+    AddUserProxyService,
+    DeleteUserProxyService,
+    GetAllUsersProxyService,
+    GetUserByIdProxyService,
+    GetUsersWithQueryProxyService,
+    UpdateUserProxyService,
+    UpsertUserProxyService
   ]
 };
