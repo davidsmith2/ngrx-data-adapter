@@ -28,14 +28,6 @@ export class GraphQLDataService<T> extends DefaultDataService<T> {
   }
 
   add(entity: T): Observable<T> {
-    console.debug('entityName', this.entityName)
-    console.debug('entityOp', DATA_SERVICE_METHOD_TO_ENTITY_OP.get(DataServiceMethod.Add));
-    const entityMetadata: Partial<AdapterEntityMetadata<any>> = this.entityMetadataMap[this.entityName].adapter;
-    console.debug('entityMetadata', entityMetadata)
-    const operationConfig: Partial<AdapterOperationConfig> = entityMetadata[DataServiceMethod.Add];
-    console.debug('operationConfig', operationConfig)
-    const proxy: OperationHandler<unknown> = operationConfig.proxy;
-    console.debug('proxy', proxy)
     const selectorName: string = RelationshipServiceMethod.AddOne;
     console.debug('selectorName', selectorName)
     const selector: ENTITY_SELECTOR = this.relationshipServices[this.entityName][selectorName];
@@ -61,17 +53,9 @@ export class GraphQLDataService<T> extends DefaultDataService<T> {
     return super.execute('POST', url, data, undefined).pipe(
       map((response: {data: any}) => response.data[`${selectorName}_${requestHandlerUrl}`])
     );
-}
+  }
 
   delete(key: string | number): Observable<string | number> {
-    console.debug('entityName', this.entityName)
-    console.debug('entityOp', DATA_SERVICE_METHOD_TO_ENTITY_OP.get(DataServiceMethod.Delete));
-    const entityMetadata: Partial<AdapterEntityMetadata<any>> = this.entityMetadataMap[this.entityName].adapter;
-    console.debug('entityMetadata', entityMetadata)
-    const operationConfig: Partial<AdapterOperationConfig> = entityMetadata[DataServiceMethod.Delete];
-    console.debug('operationConfig', operationConfig)
-    const proxy: OperationHandler<unknown> = operationConfig.proxy;
-    console.debug('proxy', proxy)
     const selectorName: string = RelationshipServiceMethod.DeleteOne;
     console.debug('selectorName', selectorName)
     const selector: ENTITY_SELECTOR = this.relationshipServices[this.entityName][selectorName];
@@ -97,28 +81,13 @@ export class GraphQLDataService<T> extends DefaultDataService<T> {
     return super.execute('POST', url, data, undefined).pipe(
       map((response: {data: any}) => response.data[`${selectorName}_${requestHandlerUrl}`])
     );
-}
+  }
 
   getAll(): Observable<T[]> {
-    console.debug('entityName', this.entityName)
-    console.debug('entityOp', DATA_SERVICE_METHOD_TO_ENTITY_OP.get(DataServiceMethod.GetAll));
-    const entityMetadata: Partial<AdapterEntityMetadata<any>> = this.entityMetadataMap[this.entityName].adapter;
-    console.debug('entityMetadata', entityMetadata)
-    const operationConfig: Partial<AdapterOperationConfig> = entityMetadata[DataServiceMethod.GetAll];
-    console.debug('operationConfig', operationConfig)
-    const proxy: OperationHandler<unknown> = operationConfig.proxy;
-    console.debug('proxy', proxy)
     const selectorName: string = RelationshipServiceMethod.SelectAll;
     console.debug('selectorName', selectorName)
     const selector: ENTITY_SELECTOR = this.relationshipServices[this.entityName][selectorName];
     console.debug('selector', selector)
-    if (proxy) {
-      try {
-        proxy.matchRequest(null, null);
-      } catch (error) {
-        console.warn(error);
-      }
-    }
     const resource: string = this.httpUrlGenerator.collectionResource(this.entityName, this.dataServiceConfig.root);
     console.debug('resource' ,resource)
     const requestHandlerUrl: string = resource.split('/')[1];
@@ -134,28 +103,13 @@ export class GraphQLDataService<T> extends DefaultDataService<T> {
     return super.execute('GET', url, undefined, undefined).pipe(
       map((response: {data: any}) => response.data[`${selectorName}_${requestHandlerUrl}`])
     );
-}
+  }
 
   getById(key: string | number): Observable<T> {
-    console.debug('entityName', this.entityName)
-    console.debug('entityOp', DATA_SERVICE_METHOD_TO_ENTITY_OP.get(DataServiceMethod.GetById));
-    const entityMetadata: Partial<AdapterEntityMetadata<any>> = this.entityMetadataMap[this.entityName].adapter;
-    console.debug('entityMetadata', entityMetadata)
-    const operationConfig: Partial<AdapterOperationConfig> = entityMetadata[DataServiceMethod.GetById];
-    console.debug('operationConfig', operationConfig)
-    const proxy: OperationHandler<unknown> = operationConfig.proxy;
-    console.debug('proxy', proxy)
     const selectorName: string = RelationshipServiceMethod.SelectOne;
     console.debug('selectorName', selectorName)
     const selector: ENTITY_SELECTOR = this.relationshipServices[this.entityName][selectorName];
     console.debug('selector', selector)
-    if (proxy) {
-      try {
-        proxy.matchRequest(null, null);
-      } catch (error) {
-        console.warn(error);
-      }
-    }
     const resource: string = this.httpUrlGenerator.entityResource(this.entityName, this.dataServiceConfig.root);
     console.debug('resource', resource)
     const requestHandlerUrl: string = resource.split('/')[1];
@@ -171,17 +125,9 @@ export class GraphQLDataService<T> extends DefaultDataService<T> {
     return super.execute('GET', url, undefined, undefined).pipe(
       map((response: {data: any}) => response.data[`${selectorName}_${requestHandlerUrl}`])
     );
-}
+  }
 
   getWithQuery(queryParams: string | QueryParams): Observable<T[]> {
-    console.debug('entityName', this.entityName)
-    console.debug('entityOp', DATA_SERVICE_METHOD_TO_ENTITY_OP.get(DataServiceMethod.GetWithQuery));
-    const entityMetadata: Partial<AdapterEntityMetadata<any>> = this.entityMetadataMap[this.entityName].adapter;
-    console.debug('entityMetadata', entityMetadata)
-    const operationConfig: Partial<AdapterOperationConfig> = entityMetadata[DataServiceMethod.GetWithQuery];
-    console.debug('operationConfig', operationConfig)
-    const proxy: OperationHandler<unknown> = operationConfig.proxy;
-    console.debug('proxy', proxy)
     const selectorName: string = RelationshipServiceMethod.SelectAll;
     console.debug('selectorName', selectorName)
     const selector: ENTITY_SELECTOR = this.relationshipServices[this.entityName][selectorName];
@@ -201,17 +147,9 @@ export class GraphQLDataService<T> extends DefaultDataService<T> {
     return super.execute('GET', url, undefined, undefined).pipe(
       map((response: {data: any}) => response.data[`${selectorName}_${requestHandlerUrl}`])
     );
-}
+  }
 
   update(update: Update<T>): Observable<T> {
-    console.debug('entityName', this.entityName)
-    console.debug('entityOp', DATA_SERVICE_METHOD_TO_ENTITY_OP.get(DataServiceMethod.Update));
-    const entityMetadata: Partial<AdapterEntityMetadata<any>> = this.entityMetadataMap[this.entityName].adapter;
-    console.debug('entityMetadata', entityMetadata)
-    const operationConfig: Partial<AdapterOperationConfig> = entityMetadata[DataServiceMethod.Update];
-    console.debug('operationConfig', operationConfig)
-    const proxy: OperationHandler<unknown> = operationConfig.proxy;
-    console.debug('proxy', proxy)
     const selectorName: string = RelationshipServiceMethod.UpdateOne;
     console.debug('selectorName', selectorName)
     const selector: ENTITY_SELECTOR = this.relationshipServices[this.entityName][selectorName];
@@ -237,17 +175,9 @@ export class GraphQLDataService<T> extends DefaultDataService<T> {
     return super.execute('POST', url, data, undefined).pipe(
       map((response: {data: any}) => response.data[`${selectorName}_${requestHandlerUrl}`])
     );
-}
+  }
 
   upsert(entity: T): Observable<T> {
-    console.debug('entityName', this.entityName)
-    console.debug('entityOp', DATA_SERVICE_METHOD_TO_ENTITY_OP.get(DataServiceMethod.Upsert));
-    const entityMetadata: Partial<AdapterEntityMetadata<any>> = this.entityMetadataMap[this.entityName].adapter;
-    console.debug('entityMetadata', entityMetadata)
-    const operationConfig: Partial<AdapterOperationConfig> = entityMetadata[DataServiceMethod.Upsert];
-    console.debug('operationConfig', operationConfig)
-    const proxy: OperationHandler<unknown> = operationConfig.proxy;
-    console.debug('proxy', proxy)
     const selectorName: string = RelationshipServiceMethod.UpsertOne;
     console.debug('selectorName', selectorName)
     const selector: ENTITY_SELECTOR = this.relationshipServices[this.entityName][selectorName];
@@ -274,6 +204,6 @@ export class GraphQLDataService<T> extends DefaultDataService<T> {
     return super.execute('POST', url, data, undefined).pipe(
       map((response: {data: any}) => response.data[`${selectorName}_${requestHandlerUrl}`])
     );
-}
+  }
 
 }

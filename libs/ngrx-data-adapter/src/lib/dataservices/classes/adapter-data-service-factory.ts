@@ -29,7 +29,6 @@ export class AdapterDataServiceFactory extends DefaultDataServiceFactory {
         this.httpUrlGenerator,
         this.dataServiceConfig
       );
-      service.entityMetadataMap = this.entityMetadataMaps[0];
       service.relationshipServices = this.relationshipServices;
       service.graphQLQueryService = this.graphQLQueryService;
       return service;
@@ -42,6 +41,7 @@ export class AdapterDataServiceFactory extends DefaultDataServiceFactory {
         this.dataServiceConfig
       );
     }
+    service.entityMetadataMap = this.entityMetadataMaps[0];
     return service;
   }
 }
