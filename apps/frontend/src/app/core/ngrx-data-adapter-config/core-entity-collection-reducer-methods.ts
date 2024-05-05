@@ -1,4 +1,5 @@
 import { EntityAction, EntityCollection, EntityCollectionReducerMethodMap, EntityCollectionReducerMethods, EntityOp, HttpUrlGenerator, UpdateResponseData } from "@ngrx/data";
+import { environment } from "apps/frontend/src/environments/environment";
 
 export class CoreEntityCollectionReducerMethods<T> extends EntityCollectionReducerMethods<T> {
 
@@ -22,7 +23,11 @@ export class CoreEntityCollectionReducerMethods<T> extends EntityCollectionReduc
 
   protected queryManySuccess(collection: EntityCollection<T>, action: EntityAction<T[]>): EntityCollection<T> {
     const ec: EntityCollection<T> = super.queryManySuccess(collection, action);
-    if (action.payload.entityOp === EntityOp.QUERY_MANY_SUCCESS && action.payload.entityName === 'User') {
+    if (
+      environment.apiRoot === 'rest' &&
+      action.payload.entityOp === EntityOp.QUERY_MANY_SUCCESS &&
+      action.payload.entityName === 'User'
+    ) {
       (ec as any).paginator = (action.payload as any).meta;
     }
     return ec;

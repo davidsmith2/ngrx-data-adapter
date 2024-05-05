@@ -1,3 +1,4 @@
 export interface WriteOperationHandler<T> {
-  modifyRequest(entity: T): unknown;
+  modifyRequest(request: T|string|number): unknown;
+  modifyResponse(response: unknown): T|string|number;
 }

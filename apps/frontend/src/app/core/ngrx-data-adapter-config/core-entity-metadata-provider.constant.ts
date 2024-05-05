@@ -2,11 +2,15 @@ import { Provider } from '@angular/core';
 import { ENTITY_METADATA_TOKEN } from '@ngrx/data';
 import { GetAllUsersOperationHandler } from '../user/get-all-users-operation-handler';
 import { GetUserByKeyRequestHandler } from '../user/get-user-by-key-operation-handler';
+import { GetUsersWithQueryOperationHandler } from '../user/get-users-with-query-operation-handler';
 import { AddUserOperationHandler } from '../user/add-user-operation-handler';
 import { GetAllCompaniesOperationHandler } from '../company/get-all-companies-operation-handler';
 import { GetCompanyByKeyOperationHandler } from '../company/get-company-by-key-operation-handler';
 import { GetAddressByKeyOperationHandler } from '../address/get-address-by-key-operation-handler';
 import { GetAllAddressesOperationHandler } from '../address/get-all-addresses-operation-handler';
+import { DeleteUserOperationHandler } from '../user/delete-user-operation-handler';
+import { UpdateUserOperationHandler } from '../user/update-user-operation-handler';
+import { UpsertUserOperationHandler } from '../user/upsert-user-operation-handler';
 
 export const CoreEntityMetadataProvider: Provider = {
   provide: ENTITY_METADATA_TOKEN,
@@ -29,19 +33,19 @@ export const CoreEntityMetadataProvider: Provider = {
             proxy: new GetUserByKeyRequestHandler(null)
           },
           getWithQuery: {
-            proxy: null
+            proxy: new GetUsersWithQueryOperationHandler(null)
           },
           add: {
             proxy: new AddUserOperationHandler(null)
           },
           update: {
-            proxy: null
+            proxy: new UpdateUserOperationHandler(null)
           },
           delete: {
-            proxy: null
+            proxy: new DeleteUserOperationHandler(null)
           },
           upsert: {
-            proxy: null
+            proxy: new UpsertUserOperationHandler(null)
           }
         }
       },

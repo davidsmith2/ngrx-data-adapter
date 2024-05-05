@@ -23,12 +23,12 @@ export class GraphQLDataService<T> extends DefaultDataService<T> {
   }
 
   add(entity: T): Observable<T> {
+    const resource: string = this.httpUrlGenerator.entityResource(this.entityName, this.dataServiceConfig.root);
+    console.debug('resource', resource)
     const selectorName: string = RelationshipServiceMethod.AddOne;
     console.debug('selectorName', selectorName)
     const selector: ENTITY_SELECTOR = this.relationshipServices[this.entityName][selectorName];
     console.debug('selector', selector)
-    const resource: string = this.httpUrlGenerator.entityResource(this.entityName, this.dataServiceConfig.root);
-    console.debug('resource', resource)
     const requestHandlerUrl: string = resource.split('/')[1];
     console.debug('requestHandlerUrl', requestHandlerUrl)
     const graphQLStr: string = this.graphQLQueryService.toGraphQL(
@@ -140,7 +140,9 @@ export class GraphQLDataService<T> extends DefaultDataService<T> {
     const url: string = `${this.dataServiceConfig.root}?${encodedQueryStr.replace(/query%7B/g, 'query=%7B')}`;
     console.debug('url', url)
     return super.execute('GET', url, undefined, undefined).pipe(
-      map((response: {data: any}) => response.data[`${selectorName}_${requestHandlerUrl}`])
+      map((response: {data: any}) => {
+        return response.data[`${selectorName}_${requestHandlerUrl}`];
+      })
     );
   }
 
